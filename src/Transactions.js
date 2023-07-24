@@ -11,7 +11,8 @@ function Transactions(){
     }
 
     const [transactions, setTransactions]= useState([])
-    const [filteredList, setFilteredList] = useState([])
+    const [input, setInput] = useState('')
+    const [filteredTransactions, setFilteredTransactions] = useState('')
 
     useEffect(function(){
         console.log("useEffect");
@@ -23,7 +24,7 @@ function Transactions(){
           });
      },[]) 
      
-     const filterBySearch = (event) =>{
+/*      const filterBySearch = (event) =>{
         const query = event.target.value;
         let updatedList = [...transactions];
         updatedList = updatedList.filter((item)=>{
@@ -31,12 +32,19 @@ function Transactions(){
         })
         setFilteredList(updatedList)
         console.log(filteredList)
-     }
+     } */
+
+     function handleOnSearching(event){
+        setInput(event.target.value)
+        console.log(input)
+        let filteredTransactions = [...transactions];
+        setFilteredTransactions(filteredTransactions=>filteredTransactions.filter(transaction=>transaction.description.includes(input)))
+    }
     
 
     return(
             <div>
-                <input style={searchBarStyle} type="text" placeholder="Search Your Transactions" onChange={filterBySearch} ></input>
+                <input value ={input} onChange={handleOnSearching} style={searchBarStyle} type="text" placeholder="Search Your Transactions" ></input>
                 
                 <table class="table table-striped">
                 {transactions.map((transaction)=>(
@@ -52,14 +60,9 @@ function Transactions(){
                    
                 ))}
                 </table>
-
-                <h3>Search Results</h3>
-                <startSearch />
-
             </div>
         
     )
-    
 }
 
 export default Transactions
