@@ -11,8 +11,7 @@ function Transactions(){
     }
 
     const [transactions, setTransactions]= useState([])
-
-    const [filterTerm, setFilterTerm] = useState([])
+    const [filteredList, setFilteredList] = useState([])
 
     useEffect(function(){
         console.log("useEffect");
@@ -24,18 +23,20 @@ function Transactions(){
           });
      },[]) 
      
-     const startSearch = (e) =>{
-        setFilterTerm(e.target.value)
-        let filteredItems = transactions.filter(function(filterTerm){
-            return content.test(filterTerm)
+     const filterBySearch = (event) =>{
+        const query = event.target.value;
+        let updatedList = [...transactions];
+        updatedList = updatedList.filter((item)=>{
+            return item.toLowerCase().indexOf(query.toLowerCase()) !== -1;
         })
-        console.log(filteredItems)
+        setFilteredList(updatedList)
+        console.log(filteredList)
      }
     
 
     return(
             <div>
-                <input style={searchBarStyle} type="text" value={filterTerm} placeholder="Search Your Transactions" onChange={startSearch} ></input>
+                <input style={searchBarStyle} type="text" placeholder="Search Your Transactions" onChange={filterBySearch} ></input>
                 
                 <table class="table table-striped">
                 {transactions.map((transaction)=>(
