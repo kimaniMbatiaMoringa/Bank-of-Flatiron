@@ -11,7 +11,6 @@ function App() {
   return (
     <>
       <NavBar />
-      <Search />
       <AddTransaction />
       <Transactions />
     </>

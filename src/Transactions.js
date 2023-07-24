@@ -4,7 +4,15 @@ import { useEffect, useState } from 'react';
 
 function Transactions(){
 
+
+    const searchBarStyle = {
+        width: "100%",
+        height: "50px" 
+    }
+
     const [transactions, setTransactions]= useState([])
+
+    const [filterTerm, setFilterTerm] = useState([])
 
     useEffect(function(){
         console.log("useEffect");
@@ -14,10 +22,21 @@ function Transactions(){
             console.log("setState");
             setTransactions(data);
           });
-     },[])  
+     },[]) 
+     
+     const startSearch = (e) =>{
+        setFilterTerm(e.target.value)
+        let filteredItems = transactions.filter(function(filterTerm){
+            return content.test(filterTerm)
+        })
+        console.log(filteredItems)
+     }
+    
 
     return(
             <div>
+                <input style={searchBarStyle} type="text" value={filterTerm} placeholder="Search Your Transactions" onChange={startSearch} ></input>
+                
                 <table class="table table-striped">
                 {transactions.map((transaction)=>(
                     <>
@@ -32,6 +51,9 @@ function Transactions(){
                    
                 ))}
                 </table>
+
+                <h3>Search Results</h3>
+                <startSearch />
 
             </div>
         
