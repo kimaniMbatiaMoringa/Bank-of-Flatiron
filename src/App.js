@@ -8,10 +8,16 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
+  const pull_data = (data)=>{
+    console.log(data); //Logs data from child
+  }
+
   return (
-    <>
+    <>      
       <NavBar />
-      <AddTransaction />
+      <AddTransaction
+        func={pull_data}
+      />
       <Transactions />
     </>
 
