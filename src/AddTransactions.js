@@ -1,16 +1,15 @@
 import React from "react";
-import Transactions from './Transactions';
 import {useState} from "react"
 
-function AddTransaction(props){
+function AddTransaction({onSubmission}){
     const [form, setForm] = useState({
         date: '',
         description: "",
         category: "",
         amount: ""
-    })
+    })   
 
-    props.func("My Name is K Mbatia")
+    //props.func("My Name is K Mbatia")
 
     const handleChange = (event) =>{
         setForm({
@@ -19,7 +18,12 @@ function AddTransaction(props){
         })
     }
 
-    function handleSubmit(event){
+    function handleSubmit(e){
+        e.preventDefault();
+        onSubmission(form)
+    }
+
+/*     function handleSubmit(event){
         event.preventDefault();
         alert(form.date +"" + form.description + "" + form.category + "" + form.amount)
         //setDescription(descriptionInput)
@@ -31,7 +35,7 @@ function AddTransaction(props){
             body:JSON.stringify(form)
         }
         fetch("http://localhost:4000/transactions", serverOptions)
-    }
+    } */
 
     return(
         <>
@@ -42,6 +46,7 @@ function AddTransaction(props){
             <input id="amount" onChange={handleChange} type="text" placeholder="Enter Amount" ></input>
             <button type="submit">Add Transaction</button>
         </form>
+
 
           </>
         
